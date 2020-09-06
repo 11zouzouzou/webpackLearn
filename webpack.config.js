@@ -6,8 +6,9 @@ module.exports = {
   mode: "development", //开发环境
   devtool: "inline-source-map", //映射源码位置
   entry: {
-    app: "./src/index.js",
-    print: "./src/print.js",
+    app: { import: "./src/index.js", dependOn: "shared" },
+    print: { import: "./src/print.js", dependOn: "shared" },
+    shared: "lodash",
   },
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }), //不在 watch 触发增量构建后删除 index.html 文件
@@ -43,6 +44,12 @@ module.exports = {
         use: ["xml-loader"],
       },
     ],
+  },
+  optimization: {
+    //防止重复
+    splitChunks: {
+      chunks: "all",
+    },
   },
   //dev-server
   devServer: {
