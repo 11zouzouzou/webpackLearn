@@ -2,6 +2,8 @@ import _ from "lodash";
 import Icon from "./test.png";
 import "./style.css";
 import Data from "./data.xml";
+
+import printMe from "./print.js";
 function component() {
   const element = document.createElement("div");
 
@@ -21,4 +23,18 @@ function component() {
   return element;
 }
 
+function printButton() {
+  const element = document.createElement("div");
+  const btn = document.createElement("button");
+  element.innerHTML = _.join(["Hello2", "webpack"], " ");
+  btn.innerHTML = "点击这里，然后查看 Info！";
+  btn.onclick = printMe;
+
+  element.appendChild(btn);
+
+  return element;
+}
+
 document.body.appendChild(component());
+
+document.body.appendChild(printButton());
