@@ -1,3 +1,3 @@
 export default function printMe() {
-    alert('输出2');
-  }
+  alert("输出3");
+}

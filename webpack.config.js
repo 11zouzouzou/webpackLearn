@@ -1,14 +1,16 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
+  mode: "development", //开发环境
+  devtool: "inline-source-map", //映射源码位置
   entry: {
     app: "./src/index.js",
     print: "./src/print.js",
   },
   plugins: [
-    new CleanWebpackPlugin(),
+    new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }), //不在 watch 触发增量构建后删除 index.html 文件
     new HtmlWebpackPlugin({
       title: "管理输出",
     }),
@@ -16,6 +18,7 @@ module.exports = {
   output: {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
+    publicPath: "/", //webpack-dev-middleware设置，yarn server//本示例只是运行3000端口一下
   },
   module: {
     rules: [
@@ -40,5 +43,22 @@ module.exports = {
         use: ["xml-loader"],
       },
     ],
+  },
+  //dev-server
+  devServer: {
+    contentBase: path.join(__dirname, "dist"),
+    port: 7000,
+    // host:'0.0.0.0'//主机号
+    historyApiFallback: {
+      //无效地址
+      rewrites: [{ from: /./, to: "/404.html" }],
+    },
+    watchOptions: {
+      //监听文件改动
+      aggregateTimeout: 800,
+      poll: 1000,
+      ignored: /node_modules/,
+    },
+    hot: true, //热刷新
   },
 };
