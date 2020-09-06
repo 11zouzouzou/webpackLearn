@@ -13,14 +13,17 @@ module.exports = {
     // shared: "lodash",
   },
   plugins: [
+    // 对于 CleanWebpackPlugin 的 v2 versions 以下版本，使用 new CleanWebpackPlugin(['dist/*'])
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }), //不在 watch 触发增量构建后删除 index.html 文件
     new HtmlWebpackPlugin({
-      title: "管理输出",
+      // title: "管理输出",
+      title: "Caching",
     }),
   ],
   output: {
-    filename: "[name].bundle.js",
-    chunkFilename: "[name].bundle.js",
+    // filename: "[name].bundle.js",
+    // chunkFilename: "[name].bundle.js",
+    filename: "[name].[contenthash].js", //以防止代码更新，
     path: path.resolve(__dirname, "dist"),
     publicPath: "/", //webpack-dev-middleware设置，yarn server//本示例只是运行3000端口一下
   },
@@ -48,12 +51,20 @@ module.exports = {
       },
     ],
   },
-  // optimization: {
-  //   //防止重复
-  //   splitChunks: {
-  //     chunks: "all",
-  //   },
-  // },
+  optimization: {
+    runtimeChunk: "single", //分离runtime代码
+    //防止重复
+    splitChunks: {
+      cacheGroups: {
+        //分离第三方类库
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: "vendors",
+          chunks: "all",
+        },
+      },
+    },
+  },
   //dev-server
   devServer: {
     contentBase: path.join(__dirname, "dist"),

@@ -1,4 +1,4 @@
-// import _ from "lodash";
+import _ from "lodash";
 import Icon from "./test.png";
 import "./style.css";
 import Data from "./data.xml";
@@ -34,28 +34,27 @@ function printButton() {
 
   return element;
 }
+document.body.appendChild(component());
+
+document.body.appendChild(printButton());
 
 //动态导入load
 
-async function getDynamicComponent() {
-  const element = document.createElement("div");
-  const { default: _ } = await import(
-    /* webpackChunkName: "lodash" */ "lodash"
-  );
-  // import(/* webpackPrefetch: true */ 'LoginModal');
-  // import(/* webpackPreload: true */ 'ChartingLibrary');
-  //预获取与预加载模块(prefetch/preload module)
-  // bundle 分析(bundle analysis)//分析工具
+// async function getDynamicComponent() {
+//   const element = document.createElement("div");
+//   const { default: _ } = await import(
+//     /* webpackChunkName: "lodash" */ "lodash"
+//   );
+//   // import(/* webpackPrefetch: true */ 'LoginModal');
+//   // import(/* webpackPreload: true */ 'ChartingLibrary');
+//   //预获取与预加载模块(prefetch/preload module)
+//   // bundle 分析(bundle analysis)//分析工具
 
-  element.innerHTML = _.join(["HelloDynamicComponent", "webpack"], " ");
+//   element.innerHTML = _.join(["HelloDynamicComponent", "webpack"], " ");
 
-  return element;
-}
+//   return element;
+// }
 
-getDynamicComponent().then((component) => {
-  document.body.appendChild(component);
-});
-
-// document.body.appendChild(component());
-
-// document.body.appendChild(printButton());
+// getDynamicComponent().then((component) => {
+//   document.body.appendChild(component);
+// });
