@@ -52,6 +52,7 @@ module.exports = {
     ],
   },
   optimization: {
+    moduleIds: 'hashed',//在通过filename: "[name].[contenthash].js",构建时不变的代码出口保持hash一致
     runtimeChunk: "single", //分离runtime代码
     //防止重复
     splitChunks: {
