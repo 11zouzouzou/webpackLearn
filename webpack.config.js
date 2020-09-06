@@ -6,9 +6,11 @@ module.exports = {
   mode: "development", //开发环境
   devtool: "inline-source-map", //映射源码位置
   entry: {
-    app: { import: "./src/index.js", dependOn: "shared" },
-    print: { import: "./src/print.js", dependOn: "shared" },
-    shared: "lodash",
+    app: "./src/index.js",
+    //防止重复
+    // app: { import: "./src/index.js", dependOn: "shared" },
+    // print: { import: "./src/print.js", dependOn: "shared" },
+    // shared: "lodash",
   },
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }), //不在 watch 触发增量构建后删除 index.html 文件
@@ -18,6 +20,7 @@ module.exports = {
   ],
   output: {
     filename: "[name].bundle.js",
+    chunkFilename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
     publicPath: "/", //webpack-dev-middleware设置，yarn server//本示例只是运行3000端口一下
   },
@@ -45,12 +48,12 @@ module.exports = {
       },
     ],
   },
-  optimization: {
-    //防止重复
-    splitChunks: {
-      chunks: "all",
-    },
-  },
+  // optimization: {
+  //   //防止重复
+  //   splitChunks: {
+  //     chunks: "all",
+  //   },
+  // },
   //dev-server
   devServer: {
     contentBase: path.join(__dirname, "dist"),
