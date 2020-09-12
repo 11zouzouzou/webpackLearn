@@ -17,3 +17,8 @@ yarn add clean-webpack-plugin html-webpack-plugin;(清除与搭建 dist 中 html
 #开发环境搭建
 
 yarn add webpack-dev-server express webpack-dev-middleware;(dev 开发与 server 开发);
+
+#libraryTest
+
+yarn add webpacklibrary-zou
+

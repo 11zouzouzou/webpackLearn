@@ -1,0 +1,20 @@
+{
+  "name": "webpacklibrary-zou",
+  "version": "1.0.1",
+  "description": "",
+  "main": "dist/webpack-numbers.js",
+  "scripts": {
+    "build": "webpack && cp dist/webpack-numbers.js examples/browser",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "lodash": "^4.17.20",
+    "webpack": "^4.44.1"
+  },
+  "dependencies": {
+    "webpacklibrary-zou": "^1.0.0"
+  }
+}

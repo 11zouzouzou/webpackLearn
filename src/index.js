@@ -4,11 +4,17 @@ import "./style.css";
 import Data from "./data.xml";
 
 import printMe from "./print.js";
+
+import * as ZouTestLiabrary from "webpacklibrary-zou";
 function component() {
+  //testLibrary
+  let q = ZouTestLiabrary;
+  console.log(q);
+  console.log(q.numToWord(2));
   const element = document.createElement("div");
 
   // lodash ES6
-  console.log("1");
+  // console.log("1");
   element.innerHTML = _.join(["Hello1", "webpack"], " ");
   element.classList.add("hello"); //add css
 
