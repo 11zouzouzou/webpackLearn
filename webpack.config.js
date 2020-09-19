@@ -26,6 +26,7 @@ module.exports = {
     // filename: "[name].[contenthash].js", //以防止代码更新，
     path: path.resolve(__dirname, "dist"),
     // publicPath: "/", //webpack-dev-middleware设置，yarn server//本示例只是运行3000端口一下
+    pathinfo: false, //会在输出的 bundle 中生成路径信息,在打包数千个模块的项目中，这会导致造成垃圾回收性能压力
   },
   module: {
     rules: [
@@ -65,6 +66,10 @@ module.exports = {
         },
       },
     },
+    //这些优化适用于小型代码库，但是在大型代码库中却非常耗费性能
+    removeAvailableModules: false,
+    removeEmptyChunks: false,
+    splitChunks: false,
   },
   //dev-server
   devServer: {
