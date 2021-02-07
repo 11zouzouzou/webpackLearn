@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   mode: "development", //开发环境
@@ -70,6 +71,24 @@ module.exports = {
     removeAvailableModules: false,
     removeEmptyChunks: false,
     splitChunks: false,
+    //压缩打包
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        test: /\.js(\?.*)?$/i, //匹配需要压缩的文件
+        cache: true,
+        parallel: true, //启用/禁用多进程并发运行功能
+        sourceMap: false, // 如果在生产环境中使用 source-maps，必须设置为 true 
+        extractComments: false, //是否将注释剥离到单独的文件
+        terserOptions: {
+          // https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
+          format: {
+            comments: false,//删除注释
+          },
+       
+        },
+      }),
+    ],
   },
   //dev-server
   devServer: {
